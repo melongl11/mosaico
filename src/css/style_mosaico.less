@@ -24,7 +24,7 @@
  *   #toast-container
  *   #contextmenu-help.mo
  *   #carousel-container.mo
- * 
+ *
  * CSS selector used, beyond the #ids before:
  * - .mo e .mo-*
  * - .ui-* (ui-helper-hidden-accessible, ui-tooltip)
@@ -35,7 +35,7 @@
  * - .toast-* #toast-* (toastr)
  */
 
-@leftsidebar-width: 400px;
+@leftsidebar-width: 550px;
 @rightsidebar-width: 340px;
 @mainarea-minwidth: 600px;
 @topbar-height: 40px;
@@ -114,11 +114,11 @@
   top: -14px;
   left: -10px;
   height: 24px;
-  background-color: fade(@mosaico-selection-color, 60%);
+  // background-color: fade(@mosaico-selection-color, 60%);
   background-clip: content-box;
   color: white;
   right: -10px;
-  border: 2px dashed @mosaico-selection-color;
+  // border: 2px dashed @mosaico-selection-color;
   // this z-index prevent using fileupload by showing the droppable
   // under the mo-dropzone
   z-index: 10;
@@ -139,13 +139,15 @@
     right: -2px - @size;
 
     // Use border for selection
-    border: 1px solid transparent;
-    border-width: @selectedSize;
-    border-left-width: @size;
-    border-right-width: @size;
+    // border: 1px solid transparent;
+    // border-width: @selectedSize;
+    // 외곽 굵은 테두리 (재수정 1-1)
+    // border-left-width: @size;
+    // border-right-width: @size;
+
 
     // Use outline for hover effects
-    outline: 1px solid transparent;
+    // outline: 1px solid transparent;
     // outline-offset: -1px;
 
     // otherwise this catches clicks and prevent correct selection of underlying text
@@ -156,8 +158,8 @@
     // border: @selectedSize dashed @mosaico-selection-color;
     // border-left-width: @size;
     // border-right-width: @size;
-    border-color: @mosaico-selection-color;
-    border-style: dashed solid;
+    // border-color: @mosaico-selection-color;
+    // border-style: dashed solid;
     animation: border-color-selection-pulsate 4s infinite;
   }
   &:hover@{borderElementSelector} {
@@ -169,6 +171,11 @@
 
   &@{selectedSelector} {
     z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    &.mce-edit-focus {
+      box-shadow: 0 0 0 0;
+    }
+
   }
   &:hover {
     z-index: 11;
@@ -184,7 +191,7 @@
     // z-index: 0;
     top: -3px; bottom: -3px;
     left: -7px; right: -7px;
-    border: 1px dashed transparent;
+    // border: 1px dashed transparent;
     opacity: 0.3;
 
     // otherwise this catches clicks and prevent correct selection of underlying text
@@ -212,22 +219,23 @@
  ***************************************************************************************************************************/
 
 body {
-  background-color: @mosaico-ui-background-color;
+  background-color: #443950;
   margin: 0;
   overflow: hidden; /* otherwsie TinyMCE menues sometimes makes scrollbars show in main body */
 }
 input, select, textarea, button { // input don't inherit font properties from body by default.
   font-family: inherit;
-  font-size: inherit; 
+  font-size: inherit;
   max-width: 100%;
+  font-size: 13px;
 }
 
 * {
   user-select: none;
 }
 input,
-textarea, 
-[contenteditable], 
+textarea,
+[contenteditable],
 [contenteditable] *, // makes IE contenteditable content selectable again
 .evo-color span // allow selecting for hex colors in colorpicker
 {
@@ -273,7 +281,7 @@ a[disabledhref]:-moz-read-write {
 
 #toolbar {
   z-index: 110 !important; // Bigger than #main-toolbox .ui-tabs .ui-tabs-panel
-  background-color: @mosaico-ui-background-color;
+  background-color: #1D1D1D;
   box-sizing: border-box;
   position: absolute;
   top: 0;
@@ -320,7 +328,7 @@ a[disabledhref]:-moz-read-write {
   display: block;
   position: absolute;
   border: 0;
-  height: @topbar-height;
+  height: 0;
   box-shadow: 0px 1px 10px @mosaico-shadow-color, 0px 0px 5px @mosaico-shadow-color;
   left: 0;
   right: 0;
@@ -332,7 +340,7 @@ a[disabledhref]:-moz-read-write {
   bottom: -@topbar-height;
 }
 #frame-container:before {
-  top: -@topbar-height;
+  top: 0;
 }
 #frame-container:after {
   top: auto;
@@ -340,26 +348,27 @@ a[disabledhref]:-moz-read-write {
 }
 #main-wysiwyg-area {
   position: absolute;
-  top: @topbar-height;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  background: #f1f1f1;
   // http://blog.getpostman.com/2015/01/23/ui-repaint-issue-on-chrome/
   -webkit-transform: translate3d(0,0,0);
   // overflow-x: hidden;
 }
 
 /****************************************************************************************************************************
- * GENERIC UTILITIES: 
+ * GENERIC UTILITIES:
  * DRAG&DROP, UPLOADER, TOASTER, TOOLTIP, FONTS, LOADER
  ***************************************************************************************************************************/
 
 #main-toolbox .draggable {
   &.image {
 
-    width: 85px;
-    height: 85px;
+    width: 77px;
+    height: 77px;
     text-align: center;
     vertical-align: middle;
 
@@ -375,7 +384,7 @@ a[disabledhref]:-moz-read-write {
   }
 }
 .ui-draggable-dragging {
-  z-index: 10000;
+  z-index: 1000;
 }
 .ui-draggable-dragging.sortable-placeholder {
   top: 0 !important;
@@ -435,7 +444,7 @@ a[disabledhref]:-moz-read-write {
 
 body > .ui-tooltip {
   .win();
-  
+
   .resetFont();
   // font-family: @font-family;
   // font-size: 1em;

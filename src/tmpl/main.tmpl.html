@@ -1,95 +1,233 @@
-<div id="page" style="display: none;" data-bind="visible: true, css: { withToolbox: $root.showToolbox, withPreviewFrame: showPreviewFrame }">
-  <div id="main-edit-area" data-bind="click: function(obj, evt) { $root.selectBlock(null); return true; }, clickBubble: false">
+<div
+  id="page"
+  style="display: none;"
+  data-bind="visible: true, css: { withToolbox: $root.showToolbox, withPreviewFrame: showPreviewFrame }"
+>
+  <div
+    id="main-edit-area"
+    data-bind="click: function(obj, evt) { $root.selectBlock(null); return true; }, clickBubble: false"
+  >
     <!-- ko withProperties: { templateMode: 'wysiwyg', templateModeFallback: 'show' } -->
-    <div id="main-wysiwyg-area" data-bind="wysiwygScrollfix: true, scrollable: true, fudroppable: { active: draggingImage }, css: { isdragging: dragging, isdraggingimg: draggingImage }, block: content"></div>
+    <div
+      id="main-wysiwyg-area"
+      data-bind="wysiwygScrollfix: true, scrollable: true, fudroppable: { active: draggingImage }, css: { isdragging: dragging, isdraggingimg: draggingImage }, block: content"
+    ></div>
     <!-- /ko -->
   </div>
 
-  <div id="toolbar" class="mo" data-bind="tooltips: {}">
-    <!-- ko if: typeof $root.undo != 'undefined' -->
-    <span data-bind="buttonset: { }" class="leftButtons">
-    <a title="Undo last operation" href="javascript:void(0)" data-bind="attr: { title: $root.t('Undo last operation') }, click: $root.undo.execute, clickBubble: false, button: { disabled: !$root.undo.enabled(), icons: { primary: 'fa fa-reply' }, label: $root.undo.name, text: true }">UNDO</a>
-    <a title="Redo last operation" href="javascript:void(0)" data-bind="attr: { title: $root.t('Redo last operation') }, click: $root.redo.execute, clickBubble: false, button: { disabled: !$root.redo.enabled(), icons: { primary: 'fa fa-share' }, label: $root.redo.name, text: true }">REDO</a>
-    </span>
-    <!-- ko if: $root.debug -->
-    <a href="javascript:void(0)" data-bind="click: $root.undoReset, clickBubble: false, button: { disabled: !$root.undo.enabled() && !$root.redo.enabled(), label: 'reset', text: true }">RESET</a>
-    <!-- /ko -->
-    <!-- /ko -->
+  <!-- toolbar comment start -->
 
-    <span>
-    <input id="showGallery" type="checkbox" data-bind="checked: $root.showGallery, button: { refreshOn: $root.showGallery, 
-    icons: { primary: 'fa fa-fw fa-picture-o', secondary: null }, text: true, label: $root.t('Gallery') }"><label title="Show image gallery" for="showGallery" data-bind="attr: { title: $root.t('Show image gallery') }">show gallery</label></input>
-    </span>
+  <!--<div id="toolbar" class="mo" data-bind="tooltips: {}">
+
 
     <input id="previewFrameToggle" type="checkbox" data-bind="checked: $root.showPreviewFrame, button: { refreshOn: $root.showPreviewFrame, icons: { primary: 'fa fa-fw fa-tablet', secondary: null }, text: false, label: $root.t('Preview') }"><label title="Show live preview" for="previewFrameToggle" data-bind="attr: { title: $root.t('Show live preview') }">PREVIEW</label></input>
-
-    <!-- ko if: $root.debug -->
+-->
+  <!-- ko if: $root.debug -->
+  <!--
     <a href="javascript:void(0)" data-bind="click: $root.export, clickBubble: false, button: { label: 'export', text: true }">EXPORT</a>
     <input type="checkbox" data-bind="checked: $root.debug" /> debug
     <a href="javascript:void(0)" data-bind="click: $root.loadDefaultBlocks, clickBubble: false, button: { icons: { primary: 'fa fa-fw fa-upload' }, label: 'Default', text: true }">LOAD BLOCKS</a>
     [<a id="subscriptionsCount" href="javascript:viewModel.loopSubscriptionsCount()">subs</a>]
-    <!-- /ko -->
-
+-->
+  <!-- /ko -->
+  <!--
     <span data-bind="visible: false">
     <input type="checkbox" data-bind="checked: $root.showToolbox" /> toolbox
     </span>
 
     <div class="rightButtons">
-    <!-- ko if: typeof $root.save !== 'undefined' -->
+    -->
+  <!-- ko if: typeof $root.save !== 'undefined' -->
+  <!--
     <a title="Save template" href="javascript:void(0)" data-bind="attr: { title: $root.t('Save template') }, click: $root.save.execute, clickBubble: false, button: { disabled: !$root.save.enabled(), icons: { primary: 'fa fa-fw fa-cloud-upload' }, label: $root.t($root.save.name), text: true }">SALVA</a>
-    <!-- /ko -->
-    <!-- ko if: typeof $root.test !== 'undefined' -->
+    -->
+  <!-- /ko -->
+  <!-- ko if: typeof $root.test !== 'undefined' -->
+  <!--
     <a title="Show preview and send test" href="javascript:void(0)" data-bind="attr: { title: $root.t('Show preview and send test') }, click: $root.test.execute, clickBubble: false, button: { disabled: !$root.test.enabled(), icons: { primary: 'fa fa-fw fa-paper-plane' }, label: $root.t($root.test.name), text: true }">TEST</a>
-    <!-- /ko -->
-    <!-- ko if: typeof $root.download !== 'undefined' -->
+    -->
+  <!-- /ko -->
+  <!-- ko if: typeof $root.download !== 'undefined' -->
+  <!--
     <form id="downloadForm" action="#" method="POST">
     <input type="hidden" name="action" value="download" />
     <input type="hidden" name="filename" value="email.html" />
     <input type="hidden" name="html" id="downloadHtmlTextarea" />
     <a title="Download template" href="javascript:void(0)" data-bind="attr: { title: $root.t('Download template') }, click: $root.download.execute, clickBubble: false, button: { disabled: !$root.download.enabled(), icons: { primary: 'fa fa-fw fa-download' }, label: $root.t($root.download.name), text: true }">DOWNLOAD</a>
     </form>
-    <!-- /ko -->
+    -->
+  <!-- /ko -->
+  <!--
     </div>
   </div>
+  -->
+  <!-- toolbar commnet end -->
 
   <!-- ko if: $root.showToolbox -->
-  <div id="main-toolbox" class="mo" data-bind="scrollable: true, withProperties: { templateMode: 'edit' }">
+  <div
+    id="main-toolbox"
+    class="mo"
+    data-bind="scrollable: true, withProperties: { templateMode: 'edit' }"
+  >
     <div data-bind="template: { name: 'toolbox' }"></div>
   </div>
   <!-- /ko -->
-  
-  <div id="main-preview" class="mo" data-bind="scrollable: true, if: $root.showPreviewFrame">
+
+  <div
+    id="main-preview"
+    class="mo"
+    data-bind="scrollable: true, if: $root.showPreviewFrame"
+  >
     <div id="preview-toolbar">
-      <div data-bind="visible: $root.showPreviewFrame, buttonset: { }" style="display: inline-block">
-        <input id="previewLarge" type="radio" name="previewMode" value="large" data-bind="checked: $root.previewMode, button: { text: false, label: 'large', icons: { primary: 'fa fa-fw fa-desktop' } }" />
-        <label for="previewLarge" title="Large screen" data-bind="attr: { title: $root.t('Large screen') }">Large screen</label>
-        <input id="previewDesktop" type="radio" name="previewMode" value="desktop" data-bind="checked: $root.previewMode, button: { text: false, label: 'desktop', icons: { primary: 'fa fa-fw fa-tablet' } }" />
-        <label for="previewDesktop" title="Tablet" data-bind="attr: { title: $root.t('Tablet') }">Tablet</label>
-        <input id="previewMobile" type="radio" name="previewMode" value="mobile" data-bind="checked: $root.previewMode, button: { text: false, label: 'mobile', icons: { primary: 'fa fa-fw fa-mobile' } }" />
-        <label for="previewMobile" title="Smartphone" data-bind="attr: { title: $root.t('Smartphone') }">Smartphone</label>
+      <div
+        data-bind="visible: $root.showPreviewFrame, buttonset: { }"
+        style="display: inline-block"
+      >
+        <input
+          id="previewLarge"
+          type="radio"
+          name="previewMode"
+          value="large"
+          data-bind="checked: $root.previewMode, button: { text: false, label: 'large', icons: { primary: 'fa fa-fw fa-desktop' } }"
+        />
+        <label
+          for="previewLarge"
+          title="Large screen"
+          data-bind="attr: { title: $root.t('Large screen') }"
+          >Large screen</label
+        >
+        <input
+          id="previewDesktop"
+          type="radio"
+          name="previewMode"
+          value="desktop"
+          data-bind="checked: $root.previewMode, button: { text: false, label: 'desktop', icons: { primary: 'fa fa-fw fa-tablet' } }"
+        />
+        <label
+          for="previewDesktop"
+          title="Tablet"
+          data-bind="attr: { title: $root.t('Tablet') }"
+          >Tablet</label
+        >
+        <input
+          id="previewMobile"
+          type="radio"
+          name="previewMode"
+          value="mobile"
+          data-bind="checked: $root.previewMode, button: { text: false, label: 'mobile', icons: { primary: 'fa fa-fw fa-mobile' } }"
+        />
+        <label
+          for="previewMobile"
+          title="Smartphone"
+          data-bind="attr: { title: $root.t('Smartphone') }"
+          >Smartphone</label
+        >
       </div>
     </div>
 
-    <div id="frame-container" data-bind="css: { desktop: $root.previewMode() == 'desktop', mobile: $root.previewMode() == 'mobile', large: $root.previewMode() == 'large' }">
+    <div
+      id="frame-container"
+      data-bind="css: { desktop: $root.previewMode() == 'desktop', mobile: $root.previewMode() == 'mobile', large: $root.previewMode() == 'large' }"
+    >
       <iframe data-bind="bindIframe: $data"></iframe>
     </div>
   </div>
 
   <div class="mo" id="mo-body"></div>
 
-  <div id="incompatible-template" title="Saved model is obsolete" style="display: none" data-bind="attr: { title: $root.t('Saved model is obsolete') }, html: $root.t('<p>The saved model has been created with a previous, non completely compatible version, of the template</p><p>Some content or style in the model <b>COULD BE LOST</b> if you will <b>save</b></p><p>Contact us for more informations!</p>')">
+  <div
+    id="incompatible-template"
+    title="Saved model is obsolete"
+    style="display: none"
+    data-bind="attr: { title: $root.t('Saved model is obsolete') }, html: $root.t('<p>The saved model has been created with a previous, non completely compatible version, of the template</p><p>Some content or style in the model <b>COULD BE LOST</b> if you will <b>save</b></p><p>Contact us for more informations!</p>')"
+  >
     Incompatible template
   </div>
 
-  <div id="fake-image-editor" title="Fake image editor" style="display: none" data-bind="attr: { title: $root.t('Fake image editor') }, html: $root.t('<p>Fake image editor</p>')">
+  <div
+    id="fake-image-editor"
+    title="Fake image editor"
+    style="display: none"
+    data-bind="attr: { title: $root.t('Fake image editor') }, html: $root.t('<p>Fake image editor</p>')"
+  >
     <p>Fake image editor</p>
   </div>
 
-</div>
 
-<!-- ko if: $root.logoPath -->
-<div id="loading" class="loading" style="display: block; width: 300px; text-align: center; height: 32px; position: absolute; top:0; bottom: 0; left: 0; right: 0;  margin: auto;" data-bind="attr: { style: 'position: absolute; top: 5px; left: 6px; z-index: 150;'}, css: { loading: false }">
-  <a href="/" data-bind="attr: { href: $root.logoUrl, alt: $root.logoAlt }"><img data-bind="attr: { src: $root.logoPath }" width="32" height="32" alt="mosaico" border="0" /></a>
-  <div style="opacity: 0" data-bind="visible: false">Oppps... !!</div>
-</div>
+<!-- ko if: $root.mailboxLoaded() -->
+  <div class="wrapper-container" style="padding-top: 140px; background: #00000088; height: 100%; z-index: 5000; position:relative;" data-bind="css: {hidden:$root.mailboxLoaded() === false}">    
+    <div class="row">    
+      <div class="col-md-3">
+
+      </div>    
+      <div class="col-md-6" style="z-index: 5001; padding: 0px; box-shadow: 0 0 9px 3px #cecece; background: #ffffff; height: 500px;">      
+        <h3 style="text-align: center;background-color: #46374e;padding: 20px;color: #ffffff; margin: 0px;">대량메일 보내기 Send E-Mail</h3>      
+        <div style="padding: 10px 50px 10px 50px;">        
+          <div class="row">          <!-- 왼쪽 칼럼 -->
+            <div class="form-group col-md-6">            
+              <label for="from">
+                <b>보내는 사람</b>
+              </label>
+              <br>
+              <input id="sourceEmail" type="email" name="from" class="form-control" placeholder="on@toping.io">
+              <br>            
+              <label for="to">
+                <b>받는 사람</b>
+              </label>
+              <br>
+              <input id="destEmail" type="email" name="to" class="form-control">
+              <br>            
+              <label for="title">
+                <b>제목</b>
+              </label>
+              <br>
+              <input id="emailTitle" type="text" name="title" class="form-control">            
+              <div style="margin-top: 20px;">            
+                <span><b>주소록 파일첨부</b></span>
+                <br>
+                <br>              
+                <label for="uploadBtn" class="btn_file">찾아보기</label> 
+                <br>              
+                <input style="font-size:13px;" type="file" id="uploadBtn" name="files" accept=".xlsx">              
+                <div class="text-left" style="margin-top: 8px;">                
+                  <a>
+                    <input style="font-size:13px;" id="getExcelFile" type="button" value="저장된 파일 불러오기" data-bind="click: $root.getExcelFile, button: { text: true, label: $root.t('불러오기')}"/>
+                  </a>              
+                </div> 
+                <br/>            
+              </div>          
+            </div>          <!-- 오른쪽 칼럼 -->          
+            <div class="form-group col-md-6">            
+              <div class="fileBox">              
+                <div class="">                
+                  <label for="list"><b>주소록 리스트</b></label>              
+                </div>              
+                <div style="overflow: scroll; width: 100%; height: 300px; padding-top: 10px;">                
+                  <div class="table-responsive">                  
+                    <table class="table table-striped" id="excel-table">                    
+                      <thead class="text-center">                      
+                        <tr style="font-size: 13px;">                        
+                          <th style="vertical-align: middle; padding: 0; width: 40%; font-weight: bold;">이름</th>                        
+                          <th style="vertical-align: middle; padding: 0; width: 60%; font-weight: bold;">이메일</th>                      
+                        </tr>                    
+                      </thead>                  
+                    </table>                
+                  </div>              
+                </div>            
+              </div>            
+              <br>            
+              <span style="font-size: 13px;">불러온 연락처 
+                <span id="contact-n" style="color: #eb7331;">00</span>건
+              </span>            
+              <div class="form-group col-md-12 text-center" style="padding: 10px;">              
+                <a title="미리보기 표시 및 테스트 보내기" href="javascript:void(0)" data-bind="attr: { title: $root.t(\'Show preview and send test\') }, click: $root.test.execute, clickBubble: false, button: { disabled: !$root.test.enabled(), icons: { primary: \'fa fa-fw fa-paper-plane\' }, label: $root.t($root.test.name), text: true }" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button"/>              
+                <label id="sendClose" data-bind="click: $root.closeMailbox"><i style="margin-right:-3px; font-size: 18px;" class="fa fa-fw fa-times"></i>닫기</label>            
+              </div>          
+            </div>        
+          </div>      
+        </div>    
+      </div>  
+    </div>
+  </div>
 <!-- /ko -->
+</div>

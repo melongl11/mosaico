@@ -27,14 +27,17 @@
   font-size: @base-font-size * 1.6;
   font-weight: normal;
   text-decoration: none;
-  font-family: @font-family;
+  font-family: 'Spoqa Han Sans';
   // text-shadow: 1px 1px 0 #FFFFFF, 0 0 10px #FFFFFF;
+
 }
 
 #main-edit-area .isdragging .sortable-blocks-edit.empty:after {
   .makeDroppable();
   height: auto;
   bottom: -14px;
+  // background: url('/rs/img/drop_block.png');
+  background-position: center center;
 }
 
 @keyframes pulse {
@@ -59,30 +62,18 @@
   left: -10px;
   right: -10px;
   bottom: -10px;
-  border: 10px solid red;
-  border-color: rgba(255, 0, 0, .1) red rgba(255, 0, 0, .1) red;
+  // border: 10px solid transparent;
+  // border-color: rgba(0, 0, 0, 1) transparent rgba(0, 0, 0, 1) transparent;
   z-index: 50;
   opacity: .8;
 }
 
 #main-edit-area .img-wysiwyg {
-  // position: relative;
-  /* This should emulate the stlye of the replaced image... */
+  position: relative;
+  /* questo dovrebbe avere lo stesso stile dell'immagine rimpiazzata! */
   /* display: inline-block; */
-  // Using block won't work, either.. see the versafix image+article block where the image is smaller
-  /* display: block; */
+  display: block;
   width: auto;
-
-  .mo-preloading {
-    animation: opacityAnimation 2s infinite;
-  }
-
-  // declaring block in order to correctly resize image placeholder while preloading
-  // related to the width: auto in the parent img-wysiwyg.
-  td.uploadzone {
-   overflow: hidden;
-   display: block;
-  }
 }
 #main-edit-area .isdraggingimg .ui-droppable.img-wysiwyg {
   &:before {
@@ -103,6 +94,8 @@
 #main-edit-area .isdragging .sortable-blocks-edit > div:not(.sortable-placeholder):not(.ui-sortable-helper):not(.ui-draggable-dragging):first-child:before,
 #main-edit-area .isdragging .sortable-blocks-edit > div:not(.sortable-placeholder):not(.ui-sortable-helper):not(.ui-draggable-dragging):last-child:after {
   .makeDroppable();
+  // background: url('/rs/img/drop_block.png');
+  background-position: center;
 }
 
 #main-edit-area .isdragging .sortable-blocks-edit > div:not(.sortable-placeholder):not(.ui-sortable-helper):not(.ui-draggable-dragging):last-child:after {
@@ -142,9 +135,9 @@
   padding-bottom: 2px;
   margin: 0;
   min-height: 25px;
-  
+
   box-shadow: 0 0 5px @mosaico-button-shadow-color;
-  
+
   cursor: pointer;
 
   input.fileupload {
@@ -156,8 +149,11 @@
 }
 #main-edit-area .tools .tool.handle {
   float: left;
-  margin-left: 16px;
+  margin-top: 16px;
+  margin-left: -35px;
+  line-height: 20px;
   cursor: move;
+  background-color: #999999;
 }
 #main-edit-area .tools .tool.moveup,
 #main-edit-area .tools .tool.movedown {
@@ -165,21 +161,38 @@
   margin-left: 3px;
 }
 
+#main-edit-area .tools .tool.bgimage,
+#main-edit-area .tools .tool.variant, {
+  line-height: 20px;
+  background: #999999;
+  box-shadow: 0 0 0px;
+}
+
 #main-edit-area .tools .tool.delete,
 #main-edit-area .tools .tool.clone {
   float: right;
-  margin-left: 3px;
+  line-height: 20px;
+  background: #999999;
+  box-shadow: 0 0 0px;
+
+  // margin-left: 3px;
 }
 
 #main-edit-area .tools .tool.delete {
-  margin-right: 16px;
+  margin-right: -35px;
+  margin-top: 16px;
+}
+
+#main-edit-area .tools .tool.clone {
+  margin-right: -69px;
+  margin-top: 16px;
 }
 
 #main-edit-area .midtools {
   // display: none;
   visibility: hidden;
-  z-index: 30; 
-  position: absolute; 
+  z-index: 30;
+  position: absolute;
   bottom: 16px;
   // width: 100%;
   text-align: left;
@@ -214,7 +227,7 @@
   font-family: @font-family;
   font-size: 12px;
   background-color: rgba(128,128,128,.5);
-  color: white;  
+  color: white;
 }
 
 #main-edit-area .img-wysiwyg:hover .img-size {
@@ -226,6 +239,8 @@
   .tool {
     // z-index: 20;
     margin-left: 4px;
+    line-height: 20px;
+    background: #999999;
   }
 }
 
@@ -278,7 +293,7 @@
   }
 
   // we force inline editable elements to be shown as inline-block in editing
-  // there are many issues with editing inline (non inline-block) elements so 
+  // there are many issues with editing inline (non inline-block) elements so
   // this is a sensible behaviour
   span, a, b, i, cite, code, em, label, small, strong, sub, sup, q {
     &[contenteditable] {
@@ -380,40 +395,6 @@
       left: 0;
       width: 40px;
       bottom: 0;
-      background: linear-gradient( 90deg, 
-        rgba(255,255,255,0) 19%,
-        white 21%,
-        white 79%,
-        rgba(255,255,255,0) 81%
-      ), linear-gradient( 135deg, 
-        rgba(255,255,255,0) 25%,
-        rgba(255,255,255,0) 28%, 
-        white 28%,
-        white 72%, 
-        rgba(255,255,255,0) 72%, 
-        rgba(255,255,255,0) 75%
-      ), linear-gradient( -135deg, 
-        rgba(255,255,255,0) 25%,
-        rgba(255,255,255,0) 28%, 
-        white 28%,
-        white 72%, 
-        rgba(255,255,255,0) 72%, 
-        rgba(255,255,255,0) 75%
-      ),linear-gradient( 135deg, 
-        rgba(255,255,255,0) 25%,
-        #CCC 25%, 
-        white 28%,
-        white 72%, 
-        #CCC 75%, 
-        rgba(255,255,255,0) 75%
-      ), linear-gradient( -135deg, 
-        rgba(255,255,255,0) 25%,
-        #CCC 25%, 
-        white 28%,
-        white 72%, 
-        #CCC 75%, 
-        rgba(255,255,255,0) 75%
-      );
       background-size: 80px 20px;
       background-position: left -40px top 0;
       z-index: 1;
@@ -430,4 +411,41 @@
 // Add shadow to tinymce buttonbar buttons
 .mce-toolbar-grp.mce-panel .mce-btn-group {
   box-shadow: 0 0 5px @mosaico-button-shadow-color;
+}
+
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 700;
+  src: local('Spoqa Han Sans Bold'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
+  src: local('Spoqa Han Sans Regular'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 300;
+  src: local('Spoqa Han Sans Light'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 100;
+  src: local('Spoqa Han Sans Thin'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.ttf') format('truetype');
 }

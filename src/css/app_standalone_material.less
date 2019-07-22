@@ -1,16 +1,16 @@
 @import 'app_standalone.less';
 
-@accent-color: #900000; // #A01020; // #ff9800;
+@accent-color: #1D1D1D; // #A01020; // #ff9800;
 @background-color: #eeeeee;
 // @link-color: #ff9800;
 // @link-color: #ff5722; // #ea1c0d;
-@link-color: #ff5722; // #ea1c0d;
+@link-color: #2b2e33; // #ea1c0d;
 
 @font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", "Liberation Sans", Arimo, sans-serif;
 @standard-border-radius: 2px;
 @info-border-radius: @standard-border-radius;
 @button-border-radius: @standard-border-radius;
-@large-balloon-border-radius: 2px; 
+@large-balloon-border-radius: 2px;
 
 @object-background-color: #DDDDDD;
 // @mosaico-object-shadow: 1px 1px 2px lighten(@shadow-color, 30%);
@@ -33,17 +33,17 @@
 
 @ui-tabs-panel-padding: 0;
 
-// @button-hover-background-color: 
+// @button-hover-background-color:
 
 .button-style() {
   text-transform: uppercase;
 }
 
 #main-edit-area .tool {
-  border-radius: 100%;
+  //border-radius: 100%;
   padding: 4px;
   padding-bottom: 2px;
-  box-shadow: 1px 1px 3px @shadow-color;
+  // box-shadow: 1px 1px 3px @shadow-color;
 }
 
 #toolbar, #preview-toolbar {
@@ -51,8 +51,8 @@
     padding-top: 7px;
     padding-bottom: 7px;
     line-height: 22px;
-
-    background-color: @mosaico-ui-background-color;
+    display: inline;
+    background-color: #443950;
     &:hover, &.pressed {
       background-color: lighten(@mosaico-ui-background-color, 10%);
     }
@@ -64,22 +64,26 @@
       color: mix(@mosaico-ui-background-color, @button-text-color);
     }
   }
-} 
+}
 
 #main-toolbox #tooltabs.ui-tabs > .ui-tabs-nav {
-  box-shadow: 0 0 10px @shadow-color;
+  // box-shadow: 0 0 10px @shadow-color;
   position: absolute;
+  width: 250px;
   left: 0;
   right: 0;
-  z-index: 105; // the panel is 100, and the main toolbar 110
+  z-index: 220; // the panel is 100, and the main toolbar 110
+  background: @link-color;
+
 }
 
 #main-toolbox #tooltabs.ui-tabs {
   .ui-tabs-nav {
     font-size: 1em;
+    height: 100%;
     li {
       margin: 1px 1px 0 0;
-      line-height: @topbar-height - 4px;
+      line-height: @topbar-height;
     }
   }
 }
@@ -97,19 +101,19 @@
     background-color: transparent;
   }
   li > a when (@buttonstyle) {
-    background-color: transparent; 
+    background-color: transparent;
     &:hover {
-      background-color: lighten(@mosaico-ui-background-color, 10%);
-      border-bottom: 3px solid lighten(@mosaico-ui-background-color, 10%);
-    } 
+      background-color: @button-background-color2;
+      border-bottom: 0px solid lighten(@mosaico-ui-background-color, 10%);
+    }
   }
 
   li@{activeclass} a {
     & when(@buttonstyle) {
-      background-color: transparent;
+      background-color: @button-background-color2;
       color: @button-text-color;
-      border-bottom: 3px solid @button-text-color;
-    } 
+      border-bottom: 0px solid @button-text-color;
+    }
   }
 }
 
@@ -125,7 +129,7 @@
     & + .checkbox-replacer:after,
     &:checked + .checkbox-replacer:before {
       border-radius: 30px;
-      background-color: lighten(@button-background-color, 20%);
+      background-color: @button-background-color2;
       color: @button-text-color;
       // margin: 0 -2px;
     }
@@ -145,7 +149,7 @@
   .objEdit .propInput input[type=checkbox] {
     &:checked + .checkbox-replacer:before {
       margin-left: 20px;
-      background-color: @button-background-color;
+      background-color: #ee8322;
     }
     & + .checkbox-replacer:after,
     & + .checkbox-replacer:before {
@@ -162,7 +166,7 @@
       box-shadow: 1px 1px 3px @shadow-color;
     }
     &:checked + .checkbox-replacer:after {
-      background-color: lighten(@button-background-color, 20%);
+      background-color: #4b3963;
     }
     & + .checkbox-replacer:after {
       width: 34px;
@@ -209,9 +213,9 @@
 
 .mo .ui-button.ui-spinner-button {
   background-color: transparent;
-  // color: lighten(@text-color, 30%); 
+  // color: lighten(@text-color, 30%);
   .ui-button-text .ui-icon {
-    color: lighten(@text-color, 30%); 
+    color: lighten(@text-color, 30%);
   }
 }
 
@@ -275,7 +279,7 @@
 
 & when(true) {
   .mo .objEdit.level1 {
-      background-color: white;
+      background-color: #ffffff7a; 
       box-shadow: 1px 1px 3px #888;
       border-top: 0;
       padding: 6px;
@@ -284,7 +288,7 @@
 
   .mo #toolstyles, .mo #tooltheme {
     .objEdit.level1 {
-      border-top-left-radius: 30px;
+      // border-top-left-radius: 30px;
       .objLabel.level1 {
         padding-bottom: 0;
         padding-top: 1em;
@@ -300,16 +304,16 @@
   }
 
   .mo #toolstyles .objLabel.level1, .mo #tooltheme .objLabel.level1 {
-    padding-left: 60px;
+    padding-left: 15px;
   }
 
-  .mo .propInput input[type=text], 
-  .mo .propInput input[type=number], 
+  .mo .propInput input[type=text],
+  .mo .propInput input[type=number],
   .mo .propInput input[type=url],
   .mo .propInput select,
   .mo .propInput .data-select select,
   .mo .propInput .ui-spinner .ui-spinner-input {
-    border-width: 0 0 2px 0;
+    border-width: 0 0 1px 0;
     background-color: transparent;
     &:hover, &:focus {
       border-color: @link-color;
@@ -347,7 +351,7 @@
       right: 0;
       height: 43px;
       bottom: 0;
-    }    
+    }
 
     th.ui-widget-content {
       text-align: center;
@@ -383,4 +387,4 @@
   .ui-icon {
     color: @button-text-color;
   }
-} 
+}

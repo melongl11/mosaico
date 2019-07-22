@@ -12,6 +12,8 @@ var gm = gmagic.subClass({imageMagick: true});
 var config = require('../server-config.js');
 var extend = require('util')._extend;
 var url = require('url');
+var path = require('path');
+var base64Img = require('base64-img-promise');
 
 app.use(require('connect-livereload')({ ignore: [/^\/dl/, /^\/img/] }));
 // app.use(require('morgan')('dev'));
@@ -21,6 +23,40 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   limit: '5mb',
   extended: true
 })); 
+
+// I created a new url because I could not use the same url as the image upload.
+app.post('/upload_editted/', function(req, res){
+  var source = path.join(__dirname, '/../.tmp/', ''); // path where the editted image will be temporarily saved
+  var imgName = path.basename(req.body.imgUrl); // the original name of image 
+  var destination = path.join(__dirname, '/../uploads/', imgName); // path where the editted image will be finally saved
+  var thumbnailDestinataion = path.join(__dirname, '/../uploads/', 'thumbnail', imgName); // path where the thumbnail of editted image will be finally saved
+  imgName = path.parse(imgName).name;
+  var newUrl = ''
+
+  // Since the tui image editor uses canvas, the data is transferred in base64 format.
+  base64Img.img(req.body.imgFile, source, imgName).then(function(result) { // convert base64 image to image file. 
+    newUrl = result; // path where the editted image will be temporarily saved. it include the name of image
+    fs.copyFileSync(newUrl, destination); // copy the image file from temporarily folder to upload folder
+  }).then(function(result) {
+    try {
+      fs.unlinkSync(newUrl); // delete the temporarily image file
+    } catch(err) {
+      console.log(err);
+    }
+  }).then(function(result){
+    gm(destination) // make thumbnail.
+      .resize(90, 90, '^')
+      .gravity('center')
+      .extent(90, 90)
+      .write(thumbnailDestinataion, function(err) {
+        if(err) console.log(err);
+      })
+    res.status(200).send("done");
+  }).catch(function(err) {
+    console.log(err);
+    res.status(500).send("error");
+  })
+});
 
 var listFiles = function (req, options, callback) {
 

@@ -3,7 +3,7 @@
  ***************************************************************************************************************************/
 
 .mo {
-  font-family: @font-family;
+  font-family: 'Spoqa Han Sans';
   font-size: @base-font-size;
   line-height: 1.5em;
 }
@@ -11,7 +11,8 @@
 #main-toolbox {
   //font-size: 1.1em;
   line-height: normal;
-  
+  height: 100%;
+
   .propEditor .propInput .checkbox-replacer {
     padding: 4px 2px;
     font-size: 1.2em;
@@ -59,7 +60,7 @@
   .img-dropzone.ui-state-draghover:before {
     background-color: fade(@mosaico-selection-color, 80%);
     animation: none;
-  } 
+  }
 
   .uploadzone {
     font-size: 1.2em;
@@ -71,7 +72,7 @@
   @import (optional) "style_elements_drupal.less"; // TODO remove me
   @import "style_elements_jquery.less";
   @import (optional) "style_elements_qtip.less"; // TODO remove me
-  
+
   *,
   *:before,
   *:after {
@@ -79,7 +80,7 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   .ui-icon {
     overflow: visible; // preview icons to select desktop/tablet/smartphone are truncated without this.
   }
@@ -87,13 +88,15 @@
   .fa { // reset .fa
     display: inline-block;
     font-style: normal;
+    margin-left:20px;
+    margin-right:18px;
   }
-  
+
   .buttons {
     text-align: center;
     padding-top: 3px;
   }
-  
+
   .propInput {
     input[type=text], input[type=number], input[type=url], select {
       .input-style();
@@ -143,21 +146,21 @@
       }
     }
   }
-  
+
   .propEditor {
     display: table;
     width: 100%;
   }
-  
+
   .propLabel {
     padding: 8px 8px;
     padding-left: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 45%; 
-    float: left; 
-    text-align: right; 
+    width: 40%;
+    float: left;
+    text-align: right;
 
     // "?" for tooltips
     &[title]:before {
@@ -173,7 +176,7 @@
 
   }
 
-  .propInput { 
+  .propInput {
     width: 55%;
     float: left;
     input,  select { width: 100%; }
@@ -183,7 +186,7 @@
     width: 50%;
   }
 
-  .propCheck { 
+  .propCheck {
     width: 5%; float: left; padding: 5px; display: none;
   }
   .notnull .propCheck {
@@ -194,7 +197,7 @@
     content: "";
     display: table;
   }
-  
+
   .objEdit {
     display: block;
     width: 100%;
@@ -334,12 +337,12 @@
     font-weight: bold;
     /* background-color: #FFFF80; */
   }
-  .propEditor.notnull input, 
+  .propEditor.notnull input,
   .propEditor.notnull select {
     font-weight: bold;
   }
   .propEditor.notnull input[type=checkbox] {
-    font-weight: normal;
+    font-weight: bold;
   }
 
   /*
@@ -431,7 +434,7 @@
 
   .objEdit input[type=checkbox] {
     display: none;
-  
+
     & + .checkbox-replacer {
       width: 1.28571429em;
       display: block;
@@ -439,8 +442,8 @@
       // Rompe IE10
       // visibility: hidden;
     }
-    
-    /* , &:checked + .checkbox-replacer:before */ 
+
+    /* , &:checked + .checkbox-replacer:before */
     & + .checkbox-replacer:before {
       .makeFontAwesome();
     }
@@ -456,7 +459,7 @@
       content: '\f204'; /* '\f14a'; */
     }
   }
-  
+
   .propCheck input[type=checkbox] {
     &:checked + .checkbox-replacer:before {
       content: "\f041"; /* tondo con punto '\f192';*/ /* '\f140'; *//* '\f14a'; */
@@ -471,7 +474,7 @@
       opacity: .8;
     }
   }
-  
+
   .propInput .ui-spinner {
     width: 100%;
     margin: 0;
@@ -494,7 +497,7 @@
     text-decoration: underline;
     cursor: help;
   }
-  
+
   .noSelectedBlock, .customStyleHelp, .objEmpty, .galleryEmpty, .blockDescription {
     padding: 1em;
     margin-bottom: .5em;
@@ -511,7 +514,7 @@
   /***************
    * COLOR PICKER
    ***************/
-  
+
   .evo-pop {
     right: 0;
     width: auto;
@@ -557,7 +560,7 @@
       font-size: 17px;
       margin: 5px 0 4px 4px;
     }
-    
+
     .evo-more {
       padding: 4px 5px;
       a {
@@ -574,7 +577,7 @@
 
 #toolbar {
   padding: 5px 10px;
-  
+
   .button, .ui-button, .button_dropdown_split {
     margin-top: 0; margin-bottom: 0;
   }
@@ -585,7 +588,7 @@
       margin: .2em 0 0 0;
     }
   }
-  
+
   // When screen is not big enough to show the preview sidebar, let's hide the preview button
   @media (max-width: (@screen-lg-max) ) {
     label[for=previewFrameToggle] {
@@ -619,16 +622,17 @@
     height: 100%;
     overflow: hidden;
   }
-  
+
   #tooltabs.ui-tabs {
     overflow: hidden;
     .ui-tabs-panel {
+      width: 300px;
       top: @topbar-height;
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 100;
     }
-    
+
     .ui-tabs-nav {
       font-size: 1.2em;
       padding: 0px 0px 0px 4px;
@@ -639,7 +643,10 @@
 
         a {
           width: 100%;
-          padding: 0 .5em;
+          padding: 0 0 0 0;
+          height: 40px;
+          line-height: 40px;
+          text-align: left;
         }
         /*
         a {
@@ -663,17 +670,18 @@
       }
     }
     .ui-tabs-panel {
-      margin: 0; padding: 0.7em;
-      position: absolute;
+      padding: 1.5em;
+      margin: 0 0 0 250px;
+      // position: absolute;
       bottom: @ui-tabs-panel-padding;
       left: @ui-tabs-panel-padding;
       right: @ui-tabs-panel-padding;
       z-index: 100;
       background-color: @mosaico-background-color;
     }
-    
+
   }
-  
+
   .draggable-item {
     display: inline-block;
   }
@@ -685,7 +693,7 @@
     z-index: 100;
     display: inline-block;
   }
-  
+
   .draggable-item .block {
     // margin: 3px;
     .handle {
@@ -701,7 +709,7 @@
     position: relative;
 
     .addblockbutton {
-      z-index: 1000;
+      z-index: 100;
       position: absolute;
       bottom: 10px;
       right: 5px;
@@ -735,13 +743,13 @@
       }
     }
   }
-  
+
   .blockType {
     display: none;
   }
   .block-list {
     // suppongo che le immagini siano create per i 340px
-    max-width: 346px;
+    max-width: 400px;
   }
 
   // mette i blocchi al 100%
@@ -749,7 +757,7 @@
   .block-list .draggable-item img {
     width: 100%;
   }
-  
+
   .objEdit.level1.selectable {
     .makeSelectable(5px, ~'.selecteditem', 0);
   }
@@ -765,13 +773,13 @@
     }
     */
   }
-  
+
   .blockCheck input[type=checkbox] {
-  
+
     & + .checkbox-replacer {
       width: 56px;
     }
-  
+
     & + .checkbox-replacer:after {
       .makeFontAwesome;
     }
@@ -829,7 +837,7 @@
       padding-right: 4px;
     }
 
-    
+
     &:checked + .checkbox-replacer:after,
     & + .checkbox-replacer:before {
       .button-style();
@@ -845,7 +853,7 @@
     }
 
   }
-  
+
   /* while local-editing we always show the local editor */
   .workLocal {
     .propInput.global, .propInput.global * { display: none; }
@@ -863,7 +871,7 @@
       margin-right: 0;
     }
   }
-  
+
   .customStyled span {
     display: none;
   }
@@ -879,13 +887,13 @@
     opacity: 1;
   }
 
-  
+
   #tooldebug {
     overflow: auto;
   }
 }
 .mo-standalone #main-toolbox #tooltabs.ui-tabs > .ui-tabs-nav {
-  padding-left: 40px;
+
 }
 
 /****************************************************************************************************************************
@@ -897,12 +905,12 @@
 }
 
 @keyframes slideright {
-  0% { left: -(@leftsidebar-width+50px) }
-  100% { left: 0 }
+  0% { left: -250px }
+  100% { left: 250px }
 }
 @keyframes slideleft {
-  0% { left: 0 }
-  100% { left: -(@leftsidebar-width+50px) }
+  0% { left: 250px }
+  100% { left: -250px }
 }
 
 #toolimages {
@@ -917,13 +925,13 @@
   z-index: 200;
   position: absolute;
   top: 0;
-  width: @leftsidebar-width - 3px;
-  left: 0;
+  width: @leftsidebar-width - 250px;
+  left: 250px;
   animation: slideright .2s ease-out 0s 1;
   border-radius: 0;
   background-color: @mosaico-background-color;
   box-shadow: 1px 0px 3px @mosaico-shadow-color;
-  
+
   .close {
     float: right;
     visibility: hidden;
@@ -943,7 +951,7 @@
       height: 24px;
     }
   }
-  
+
   .pane {
     background-color: @mosaico-background-color;
     border-radius: 5px;
@@ -954,22 +962,22 @@
     padding: 5px;
     display: block;
   }
-  
+
 }
 
 .slidebar.hidden {
-  left: -(@leftsidebar-width+50px);
+  left: -200px;
   animation: slideleft .2s ease-out 0s 1;
 }
 
 #toolimagestab {
-  padding: 0.2em;
-  
+  padding: 0.7em;
+
   ul.ui-tabs-nav {
     padding: 0;
   }
   li.ui-state-active a {
-    background: none repeat scroll 0% 0% #FFF;
+    background: none repeat scroll 0% 0% #e96a00;
   }
   .ui-tabs-panel {
     display: block;
@@ -977,7 +985,7 @@
     // max padding to avoid breaking the gallery
     padding: 15px 18px;
     background: none repeat scroll 0% 0% #FFF;
-    border: 1px solid @mosaico-accent-color;
+    // border: 0px solid @mosaico-accent-color;
     border-width: 0px 1px 1px;
   }
 }
@@ -1005,7 +1013,7 @@
 #main-preview #frame-container {
   position: absolute;
   top: @topbar-height;
-  bottom: 40px;
+  bottom: 70px;
   left: 0;
   right: 0;
   background-color: @mosaico-background-color;
@@ -1013,7 +1021,7 @@
 }
 
 #frame-container > iframe {
-  
+
   border: 0;
   box-sizing: border-box;
   padding: 0 6px;
@@ -1036,8 +1044,45 @@
 
 #frame-container.large > iframe {
   padding: 15px;
-  
+
   width: 250%;
   height: 250%;
   transform: scale(0.4);
+}
+
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 700;
+  src: local('Spoqa Han Sans Bold'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 400;
+  src: local('Spoqa Han Sans Regular'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 300;
+  src: local('Spoqa Han Sans Light'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans';
+  font-weight: 100;
+  src: local('Spoqa Han Sans Thin'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.woff2') format('woff2'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.woff') format('woff'),
+  url('../fonts/SpoqaHanSans/SpoqaHanSansThin.ttf') format('truetype');
 }
