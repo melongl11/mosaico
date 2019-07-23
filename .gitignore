@@ -5,6 +5,5 @@
 .tmp/**
 !.tmp/README.md
 /build
-/dist
 /server-config.js
 /release

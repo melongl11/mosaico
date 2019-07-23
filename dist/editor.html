@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=1024, initial-scale=1">
+    <style media="screen">
+      p {
+        all:unset
+      }
+      h1 {
+        line-height: 38px;
+      }
+      h2 {
+        line-height: 30px;
+      }
+      h3 {
+        line-height: 25px;
+      }
+      h4 {
+        line-height: 23px;
+      }
+      h5 {
+        line-height: 20px;
+      }
+      h6 {
+        line-height: 17px;
+      }
+    </style>
+    <link rel="canonical" href="http://mosaico.io" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="rs/mosaico-libs-and-tinymce.min.js?v=0.17.4"></script>
+    <script src="rs/mosaico.min.js?v=0.17.4"></script>
+
+    <!-- tui image editor script and css start-->
+
+    <link
+      type="text/css"
+      href="https://uicdn.toast.com/tui-color-picker/v2.2.0/tui-color-picker.css"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      href="../dist/tui-image-editor.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url(http://fonts.googleapis.com/css?family=Noto+Sans);
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.7.0/fabric.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://uicdn.toast.com/tui-color-picker/v2.2.0/tui-color-picker.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../dist/tui-image-editor.js"></script>
+    <script type="text/javascript" src="./js/theme/white-theme.js"></script>
+    <script type="text/javascript" src="./js/theme/black-theme.js"></script>
+    <script>
+      function initImageEidtor(imageUrl) {
+        console.error(imageUrl);
+        var imageEditor = new tui.ImageEditor("#tui-image-editor-container", {
+          includeUI: {
+            loadImage: {
+              path: imageUrl,
+              //path: 'img/sampleImage2.png',
+              name: "SampleImage"
+            },
+            theme: blackTheme, // or whiteTheme
+            initMenu: "filter",
+            menuBarPosition: "bottom"
+          },
+          cssMaxWidth: 700,
+          cssMaxHeight: 500
+        });
+        $('.tui-image-editor-header-buttons .tui-image-editor-download-btn').replaceWith('<button class="tui-image-editor-Save-btn" >Save</button>')
+        $('.tui-image-editor-close-btn').off("click").on("click", function(){
+          imageEditor.destroy()
+          $('.tui-image-editor-container').empty().removeAttr("style").removeClass("tui-image-editor-container bottom");
+        });
+        $('.tui-image-editor-container').css("z-index", 5001);
+
+        return imageEditor
+      }
+
+    </script>
+
+    <!-- tui image editor script and css end-->
+
+    <script>
+      $(function() {
+    var basePath = window.location.href;
+    if (!Mosaico.isCompatible()) {
+      alert('Update your browser!');
+      return;
+    }
+
+    // var basePath = window.location.href.substr(0, window.location.href.lastIndexOf('/')).substr(window.location.href.indexOf('/','https://'.length));
+    if (basePath.lastIndexOf('#') > 0) basePath = basePath.substr(0, basePath.lastIndexOf('#'));
+    if (basePath.lastIndexOf('?') > 0) basePath = basePath.substr(0, basePath.lastIndexOf('?'));
+    if (basePath.lastIndexOf('/') > 0) basePath = basePath.substr(0, basePath.lastIndexOf('/'));
+    var plugins = [];
+    // A basic plugin that expose the "viewModel" object as a global variable.
+    // plugins = [function(vm) {window.viewModel = vm;}];
+    plugins.push(function(viewModel) {
+          viewModel.editImage = function(src) {
+            var imageUrl = src();
+            var tuiEditor = initImageEidtor(imageUrl);
+            $('.tui-image-editor-Save-btn').off("click").on("click", function() {
+              var extension = imageUrl.split('.').pop();
+              var image = $('.lower-canvas')[0].toDataURL('image/jpeg');
+              $.ajax({
+                type: "POST",
+                url: basePath +'/upload_editted/',
+                data: {
+                  "imgFile" : image,
+                  "imgUrl" : imageUrl
+                },
+                success: function(result) {
+                  alert("저장 완료")
+                  viewModel.remoteUrlProcessor(imageUrl);
+                },
+                error: function(result) {
+                  console.log(result);
+                  alert("서버에 문제가 발생하였습니다. 관리자에게 문의하세요.");
+                }
+              });
+            })
+          }
+        })
+    var ok = Mosaico.init({
+      load: false,
+      imgProcessorBackend: basePath+'/img/',
+      emailProcessorBackend: basePath+'/dl/',
+      titleToken: "MOSAICO Responsive Email Designer",
+      strings: 'mosaico-fr.json',
+      fileuploadConfig: {
+        url: basePath+'/upload/',
+        // messages??
+      }
+    }, plugins);
+    if (!ok) {
+      console.log("Missing initialization hash, redirecting to main entrypoint");
+      document.location = ".";
+    }
+});
+    </script>
+
+    <link rel="stylesheet" href="rs/mosaico-libs-and-tinymce.min.css?v=0.17.4" />
+    <link rel="stylesheet" href="rs/mosaico-material.min.css?v=0.17.4" />
+  </head>
+  <body class="mo-standalone">
+    <div id="tui-image-editor-container"></div>
+  </body>
+</html>
