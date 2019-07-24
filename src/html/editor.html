@@ -75,7 +75,7 @@
     <script type="text/javascript" src="./js/theme/black-theme.js"></script>
     <script>
       function initImageEidtor(imageUrl) {
-        console.error(imageUrl);
+        console.log(imageUrl);
         var imageEditor = new tui.ImageEditor("#tui-image-editor-container", {
           includeUI: {
             loadImage: {
@@ -134,8 +134,10 @@
                   "imgUrl" : imageUrl
                 },
                 success: function(result) {
-                  alert("저장 완료")
-                  viewModel.remoteUrlProcessor(imageUrl);
+                  alert("저장 완료");
+                  console.log(result);
+                  src(result);
+                  viewModel.loadImage(result);
                 },
                 error: function(result) {
                   console.log(result);

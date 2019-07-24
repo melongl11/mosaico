@@ -477,6 +477,7 @@ function initializeEditor(content, blockDefs, thumbPathConverter, galleryUrl) {
   // viewModel.linkDialog = function() {}: implement this method using "this" to find the input element $(this).val is a writableObservable.
 
   viewModel.loadImage = function(img) {
+    console.log(typeof img);
     // push image at top of "recent" gallery
     viewModel.galleryRecent.unshift(img);
     // select recent gallery tab
