@@ -136,7 +136,7 @@
                 success: function(result) {
                   alert("저장 완료");
                   console.log(result);
-                  src(result);
+                  src(result.url);
                   viewModel.loadImage(result);
                 },
                 error: function(result) {

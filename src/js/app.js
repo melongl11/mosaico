@@ -43,6 +43,7 @@ var applyBindingOptions = function(options, ko) {
     var queryParamSeparator;
     var imgProcessorBackend = options.imgProcessorBackend ? options.imgProcessorBackend : './upload';
     var backEndMatch = imgProcessorBackend.match(/^(https?:\/\/[^\/]*\/).*$/);
+    console.log(src);
     var srcMatch = src.match(/^(https?:\/\/[^\/]*\/).*$/);
     if (backEndMatch === null || (srcMatch !== null && backEndMatch[1] == srcMatch[1])) {
       queryParamSeparator = imgProcessorBackend.indexOf('?') == -1 ? '?' : '&';

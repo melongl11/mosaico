@@ -37,8 +37,9 @@ app.post("/upload_editted/", function(req, res) {
     "/../uploads/",
     "thumbnail/"
   ); // path where the thumbnail of editted image will be finally saved
-  var extension = ""
+  var extension = "";
   var newUrl = "";
+  var stat = 0;
   // Since the tui image editor uses canvas, the data is transferred in base64 format.
   base64Img
     .img(req.body.imgFile, source, imgName)
@@ -57,6 +58,9 @@ app.post("/upload_editted/", function(req, res) {
       }
     })
     .then(function(result) {
+      stat = fs.statSync(destination)
+    })
+    .then(function(result) {
       gm(destination) // make thumbnail.
         .resize(90, 90, "^")
         .gravity("center")
@@ -64,7 +68,17 @@ app.post("/upload_editted/", function(req, res) {
         .write(path.join(thumbnailDestinataion, imgName + extension), function(err) {
           if (err) console.log(err);
         });
-      res.status(200).send("uploads/" + imgName + extension);
+      var url = req.protocol + "://" + req.get("host") + "/uploads/" + imgName + extension;
+      res.status(200).json({
+        "url": url,
+        "thumbnailUrl" : req.protocol + "://" + req.get("host") + "/uploads/thumbnail/" + imgName + extension,
+        "name": imgName + extension,
+        "size" : stat.size,
+        "deleteType": "DELETE",
+        "deleteUrl": url,
+        "originalName" : imgName + extension,
+        "type" : "image/" + extension.replace('.', '')
+      });
     })
     .catch(function(err) {
       console.log(err);
